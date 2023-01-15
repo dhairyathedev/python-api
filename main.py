@@ -1,7 +1,12 @@
+from flask import Flask, jsonify, request,send_file
 
-from fastapi import FastAPI
-app = FastAPI()
+app = Flask()
 
-@app.get("/my-first-api")
+@app.route('/my-first-api', method = ['GET'])
+
 def hello():
-  return {"Hello world!"}
+
+    return "Hello world!"
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
