@@ -1,12 +1,32 @@
-from flask import Flask, jsonify, request,send_file
+# Using flask to make an api
+# import necessary libraries and functions
+from flask import Flask, jsonify, request
 
-app = Flask()
+# creating a Flask app
+app = Flask(__name__)
 
-@app.route('/my-first-api', method = ['GET'])
+# on the terminal type: curl http://127.0.0.1:5000/
+# returns hello world when we use GET.
+# returns the data that we send when we use POST.
+@app.route('/', methods = ['GET', 'POST'])
+def home():
+	if(request.method == 'GET'):
 
-def hello():
+		data = "hello world"
+		return jsonify({'data': data})
 
-    return "Hello world!"
 
+# A simple function to calculate the square of a number
+# the number to be squared is sent in the URL when we use GET
+# on the terminal type: curl http://127.0.0.1:5000 / home / 10
+# this returns 100 (square of 10)
+@app.route('/home/<int:num>', methods = ['GET'])
+def disp(num):
+
+	return jsonify({'data': num**2})
+
+
+# driver function
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+
+	app.run(debug = True)
